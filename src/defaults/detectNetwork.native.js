@@ -9,8 +9,10 @@ export default callback => {
     }
   };
 
-  NetInfo.isConnected.addEventListener('change', updateState);
-  NetInfo.isConnected.fetch().then(updateState);
+  NetInfo.isConnected.fetch().then((isConnected) => {
+    updateState(isConnected);
+    NetInfo.isConnected.addEventListener('change', updateState);
+  });
   AppState.addEventListener('change', () => {
     NetInfo.isConnected.fetch().then(updateState);
   });
